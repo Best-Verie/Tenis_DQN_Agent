@@ -1,12 +1,12 @@
-# DQN Atari Assignment - Tennis 
+# DQN Atari Assignment - Boxing 
 
 ## Environment
 - Gymnasium Atari environment: `ALE/Tennis-v5`
 - Framework: Stable-Baselines3 `DQN`
 
 ## Scripts
-- `scripts/train.py`: trains DQN and saves model artifacts
-- `scripts/play.py`: loads trained model and runs evaluation gameplay
+- `scripts/train.py`: trains different DQN experiments  and saves model artifacts
+- `scripts/play.py`: loads trained best model and runs evaluation gameplay
 
 ## Raissa Experiments (10 Configurations)
 The notebook used is:
