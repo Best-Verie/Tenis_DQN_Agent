@@ -158,3 +158,22 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# To run  if Best model is CNN 
+# !python play.py \
+#   --model-path results/BestVerie/models/boxing_exp01_baseline_cnn.zip \
+#   --env-id ALE/Boxing-v5 \
+#   --policy CnnPolicy \
+#   --episodes 3 \
+#   --render-mode rgb_array \
+#   --record    
+
+#If Best Model is MLP
+# !python play.py \
+#   --model-path results/BestVerie/models/boxing_exp01_baseline_cnn.zip \
+#   --env-id ALE/Boxing-v5 \
+#   --policy CnnPolicy \
+#   --episodes 3 \
+#   --render-mode rgb_array \
+#   --record
