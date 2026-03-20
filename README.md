@@ -2,10 +2,10 @@
 
 ## Group 3 Members:
 
-Elyse Marie Uyiringiye
-Nice Eva
-Best Verie Iradukunda
-Raissa Irutingabo
+- Elyse Marie Uyiringiye
+- Nice Eva
+- Best Verie Iradukunda
+- Raissa Irutingabo
 
 ## Model Files/Videos 
 
@@ -39,10 +39,10 @@ pandas, matplotlib: Data analysis and visualization
 ## Installation
 
 # Install dependencies
-pip install -r requirements.txt
+`pip install -r requirements.txt`
 
 # On some systems, may need to install ROMs separately
-AutoROM --accept-license
+`AutoROM --accept-license`
 
 # Group Members Contribution
 
