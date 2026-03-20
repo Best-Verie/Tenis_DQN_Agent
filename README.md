@@ -33,19 +33,22 @@ ale-py (≥0.10.1): Atari Learning Environment interface
 torch: Neural network backend
 pandas, matplotlib: Data analysis and visualization
 
-## Install dependencies
+## Installation
+
+# Install dependencies
 pip install -r requirements.txt
 
-### On some systems, may need to install ROMs separately
+# On some systems, may need to install ROMs separately
 AutoROM --accept-license
 
 # Group Members Contribution
 
 ## Best Verie Experiments
 
-## Best Verie's Experiment Summary (11 experiments)
+# Boxing DQN Experiments (ALE/Boxing-v5)
 
-9 CNN experiments and 2 MLP experiments.
+
+## Best Verie's Experiment Summary (11 experiments)
 
 | Experiment | Policy | Mean Reward | Std Reward | Train Time (min) | Notes |
 |-----------|--------|------------|------------|------------------|------|
