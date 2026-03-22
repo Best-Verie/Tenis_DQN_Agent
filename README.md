@@ -87,32 +87,52 @@ Video Demonstration:
 
 Raissa Experiments (10 Configurations)Notebook used: experiments/irutingabo-experiments.ipynbThis section defines 10 experiment configurations arranged as 5 paired CNN/MLP groups — each pair shares identical hyperparameters so that CnnPolicy and MlpPolicy can be compared fairly under the same conditions.CSV Results: results/raissa/tables/raissa_hyperparameter_results.csvMarkdown Results: results/raissa/tables/raissa_hyperparameter_results.md
 
+## Hyperparamter experiments
 
-Name,Policy,Learning Rate,Gamma,Batch Size,Initial Eps,Final Eps,Fraction
-raissa_exp01_cnn_baseline,CnnPolicy,1e-4,0.99,32,1.0,0.05,0.10
-raissa_exp02_mlp_baseline,MlpPolicy,1e-4,0.99,32,1.0,0.05,0.10
-raissa_exp03_cnn_low_lr,CnnPolicy,5e-5,0.99,32,1.0,0.05,0.10
-raissa_exp04_mlp_low_lr,MlpPolicy,5e-5,0.99,32,1.0,0.05,0.10
-raissa_exp05_cnn_high_lr,CnnPolicy,2.5e-4,0.99,32,1.0,0.05,0.10
-raissa_exp06_mlp_high_lr,MlpPolicy,2.5e-4,0.99,32,1.0,0.05,0.10
-raissa_exp07_cnn_slow_eps,CnnPolicy,1e-4,0.99,32,1.0,0.10,0.50
-raissa_exp08_mlp_slow_eps,MlpPolicy,1e-4,0.99,32,1.0,0.10,0.50
-raissa_exp09_cnn_large_batch,CnnPolicy,1e-4,0.99,128,1.0,0.05,0.10
-raissa_exp10_mlp_large_batch,MlpPolicy,1e-4,0.99,128,1.0,0.05,0.10
+| Name                         | Policy    | LR   | Gamma | Batch | Init Eps | Final Eps | Frac |
+|------------------------------|-----------|------|-------|-------|----------|-----------|------|
+| raissa_exp01_cnn_baseline    | CnnPolicy | 1e-4 | 0.99  | 32    | 1.0      | 0.05      | 0.10 |
+| raissa_exp02_mlp_baseline    | MlpPolicy | 1e-4 | 0.99  | 32    | 1.0      | 0.05      | 0.10 |
+| raissa_exp03_cnn_low_lr      | CnnPolicy | 5e-5 | 0.99  | 32    | 1.0      | 0.05      | 0.10 |
+| raissa_exp04_mlp_low_lr      | MlpPolicy | 5e-5 | 0.99  | 32    | 1.0      | 0.05      | 0.10 |
+| raissa_exp05_cnn_high_lr     | CnnPolicy | 2.5e-4| 0.99  | 32    | 1.0      | 0.05      | 0.10 |
+| raissa_exp06_mlp_high_lr     | MlpPolicy | 2.5e-4| 0.99  | 32    | 1.0      | 0.05      | 0.10 |
+| raissa_exp07_cnn_slow_eps    | CnnPolicy | 1e-4 | 0.99  | 32    | 1.0      | 0.10      | 0.50 |
+| raissa_exp08_mlp_slow_eps    | MlpPolicy | 1e-4 | 0.99  | 32    | 1.0      | 0.10      | 0.50 |
+| raissa_exp09_cnn_large_batch | CnnPolicy | 1e-4 | 0.99  | 128   | 1.0      | 0.05      | 0.10 |
+| raissa_exp10_mlp_large_batch | MlpPolicy | 1e-4 | 0.99  | 128   | 1.0      | 0.05      | 0.10 |
 
-Name,Policy,Mean Reward,Std Reward,Train Min
-raissa_exp10_mlp_large_batch,MlpPolicy,2.8,5.46,1.53
-raissa_exp03_cnn_low_lr,CnnPolicy,-1.2,1.17,5.08
-raissa_exp04_mlp_low_lr,MlpPolicy,-2.4,6.34,1.55
-raissa_exp09_cnn_large_batch,CnnPolicy,-4.0,6.20,6.34
-raissa_exp02_mlp_baseline,MlpPolicy,-6.8,6.85,1.53
-raissa_exp06_mlp_high_lr,MlpPolicy,-7.0,4.94,1.53
-raissa_exp05_cnn_high_lr,CnnPolicy,-7.2,8.01,5.04
-raissa_exp07_cnn_slow_eps,CnnPolicy,-8.0,9.90,4.82
-raissa_exp01_cnn_baseline,CnnPolicy,-9.8,9.41,5.13
-raissa_exp08_mlp_slow_eps,MlpPolicy,-15.0,3.74,1.46
 
-Findings and InsightsBest model: raissa_exp10_mlp_large_batch with a mean reward of 2.8 — the only experiment to score positively across all 10 runs.Surprise result — MLP beat CNN overall: The average mean reward across all 5 CNN experiments was -6.04, while the MLP average was -5.68. This is unexpected since Boxing is a pixel-based environment. However, at only 50,000 timesteps, the CNN likely did not have enough training time to learn useful visual features, whereas the MLP updated faster (~1.5 min vs ~5 min) and squeezed more out of the budget.What helped — Lower learning rate: Reducing the LR to 5e-5 produced the best CNN result (-1.2) and the second-best MLP result (-2.4). Cautious updates appear to stabilize training at this short timestep budget.What helped — Larger batch size (for MLP): The MLP with batch size 128 was the best overall. Smoother gradient estimates gave the MLP enough signal to learn a basic positive strategy.What hurt — Higher learning rate: At 2.5e-4, updates were too aggressive for the agent to stabilize, leading to inconsistent Q-value estimates.What hurt the most — Slow epsilon decay: Extending exploration to 50% of training was the worst decision. Spending too much of a short 50k-step budget on random exploration left almost no time for exploitation.
+## Results
+
+| Experiment Name              | Policy    | Mean Reward | Std Dev | Train Min |
+|------------------------------|-----------|-------------|---------|-----------|
+| raissa_exp10_mlp_large_batch | MlpPolicy |  2.8        | 5.46    | 1.53      |
+| raissa_exp03_cnn_low_lr      | CnnPolicy | -1.2        | 1.17    | 5.08      |
+| raissa_exp04_mlp_low_lr      | MlpPolicy | -2.4        | 6.34    | 1.55      |
+| raissa_exp09_cnn_large_batch | CnnPolicy | -4.0        | 6.20    | 6.34      |
+| raissa_exp02_mlp_baseline    | MlpPolicy | -6.8        | 6.85    | 1.53      |
+| raissa_exp06_mlp_high_lr     | MlpPolicy | -7.0        | 4.94    | 1.53      |
+| raissa_exp05_cnn_high_lr     | CnnPolicy | -7.2        | 8.01    | 5.04      |
+| raissa_exp07_cnn_slow_eps    | CnnPolicy | -8.0        | 9.90    | 4.82      |
+| raissa_exp01_cnn_baseline    | CnnPolicy | -9.8        | 9.41    | 5.13      |
+| raissa_exp08_mlp_slow_eps    | MlpPolicy | -15.0       | 3.74    | 1.46      |
+
+
+Findings and Insights
+
+Best model: Raissa Exp10 MLP Large Batch, with a mean reward of 2.8. It was the only experiment to achieve a positive score across all 10 runs.
+
+Surprising result: MLP outperformed CNN overall. The average mean reward across all five CNN experiments was -6.04, while the MLP average was -5.68. This is unexpected since Boxing is a pixel-based environment. However, with only 50,000 timesteps, the CNN likely did not have enough time to learn useful visual features. In contrast, the MLP trained faster (about 1.5 minutes vs 5 minutes) and made better use of the limited training budget.
+
+What helped: Lower learning rate. Reducing the learning rate to 5e-5 produced the best CNN result (-1.2) and the second-best MLP result (-2.4). More cautious updates appear to stabilize training under a short timestep budget.
+
+What helped: Larger batch size for MLP. The MLP with a batch size of 128 performed best overall. Smoother gradient estimates provided a stronger learning signal, allowing the model to develop a basic positive strategy.
+
+What hurt: Higher learning rate. At 2.5e-4, updates were too aggressive, leading to unstable training and inconsistent Q-value estimates.
+
+What hurt the most: Slow epsilon decay. Extending exploration to 50% of training was the worst-performing decision. Spending too much of a short 50k-step budget on random exploration left insufficient time for effective exploitation.
+
 ## MarieAElyse — ALE/Boxing-v5
 
 ### Environment
