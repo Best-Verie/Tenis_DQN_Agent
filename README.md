@@ -98,20 +98,20 @@ After running the notebook, use:
 - `results/raissa/tables/raissa_hyperparameter_results.csv`
 - `results/raissa/tables/raissa_hyperparameter_results.md`
 
-Paste the generated markdown table below for final submission:
+Hyperparameter table - Raissa:
 
-| name | policy | learning_rate | gamma | batch_size | exploration_initial_eps | exploration_final_eps | exploration_fraction | mean_reward | std_reward | train_minutes |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| raissa-exp01-cnn-baseline | CnnPolicy | 1e-4 | 0.99 | 32 | 1.0 | 0.01 | 0.10 | - | - | - |
-| raissa-exp02-cnn-low-lr | CnnPolicy | 5e-5 | 0.99 | 32 | 1.0 | 0.01 | 0.10 | - | - | - |
-| raissa-exp03-cnn-higher-lr | CnnPolicy | 2.5e-4 | 0.99 | 32 | 1.0 | 0.01 | 0.10 | - | - | - |
-| raissa-exp04-cnn-gamma-097 | CnnPolicy | 1e-4 | 0.97 | 32 | 1.0 | 0.01 | 0.10 | - | - | - |
-| raissa-exp05-cnn-batch-64 | CnnPolicy | 1e-4 | 0.99 | 64 | 1.0 | 0.01 | 0.10 | - | - | - |
-| raissa-exp06-cnn-batch-128 | CnnPolicy | 1e-4 | 0.99 | 128 | 1.0 | 0.02 | 0.12 | - | - | - |
-| raissa-exp07-cnn-slow-epsilon-decay | CnnPolicy | 1e-4 | 0.99 | 64 | 1.0 | 0.05 | 0.25 | - | - | - |
-| raissa-exp08-cnn-fast-epsilon-decay | CnnPolicy | 1e-4 | 0.99 | 64 | 1.0 | 0.01 | 0.05 | - | - | - |
-| raissa-exp09-mlp-baseline-ram | MlpPolicy | 1e-4 | 0.99 | 64 | 1.0 | 0.01 | 0.10 | - | - | - |
-| raissa-exp10-mlp-alt | MlpPolicy | 2e-4 | 0.98 | 128 | 1.0 | 0.02 | 0.15 | - | - | - |
+| Member Name | Hyperparameter Set | Noted Behavior |
+|-------------|-------------------|----------------|
+| Raissa | lr=1e-4, gamma=0.99, batch=32, epsilon_start=1.0, epsilon_end=0.05, epsilon_decay=0.10 [CnnPolicy] | [Exp 1 - CNN Baseline] Standard DQN with CNN. Reference point for all CNN experiments. Agent struggles at 50k steps — Tennis requires more training to show meaningful rewards. Mean Reward: -9.8 ± 9.41 |
+| Raissa | lr=1e-4, gamma=0.99, batch=32, epsilon_start=1.0, epsilon_end=0.05, epsilon_decay=0.10 [MlpPolicy] | [Exp 2 - MLP Baseline] Same hyperparameters as Exp 1, only policy differs. MLP cannot extract spatial features from pixels. Confirms CNN vs MLP gap. Mean Reward: -6.8 ± 6.85 |
+| Raissa | lr=5e-5, gamma=0.99, batch=32, epsilon_start=1.0, epsilon_end=0.05, epsilon_decay=0.10 [CnnPolicy] | [Exp 3 - CNN Low LR] Lower learning rate slows convergence significantly. Agent learns more cautiously but reward remains negative at 50k steps. Mean Reward: -1.2 ± 1.17 |
+| Raissa | lr=5e-5, gamma=0.99, batch=32, epsilon_start=1.0, epsilon_end=0.05, epsilon_decay=0.10 [MlpPolicy] | [Exp 4 - MLP Low LR] MLP with reduced learning rate. Slower convergence compounds the spatial feature limitation of MLP. Mean Reward: -2.4 ± 6.34 |
+| Raissa | lr=2.5e-4, gamma=0.99, batch=32, epsilon_start=1.0, epsilon_end=0.05, epsilon_decay=0.10 [CnnPolicy] | [Exp 5 - CNN High LR] Higher learning rate causes Q-value instability. Loss spikes during training. High reward variance indicates unstable policy. Mean Reward: -7.2 ± 8.01 |
+| Raissa | lr=2.5e-4, gamma=0.99, batch=32, epsilon_start=1.0, epsilon_end=0.05, epsilon_decay=0.10 [MlpPolicy] | [Exp 6 - MLP High LR] MLP with high learning rate. Aggressive updates on a policy without spatial reasoning leads to poor performance. Mean Reward: -7.0 ± 4.94 |
+| Raissa | lr=1e-4, gamma=0.99, batch=32, epsilon_start=1.0, epsilon_end=0.10, epsilon_decay=0.50 [CnnPolicy] | [Exp 7 - CNN Slow Epsilon Decay] Exploration maintained for 50% of training. Diverse replay buffer but insufficient steps to benefit fully at 50k. High variance. Mean Reward: -8.0 ± 9.90 |
+| Raissa | lr=1e-4, gamma=0.99, batch=32, epsilon_start=1.0, epsilon_end=0.10, epsilon_decay=0.50 [MlpPolicy] | [Exp 8 - MLP Slow Epsilon Decay] Extended exploration with MLP policy. Worst experiment — slow decay combined with no spatial reasoning produces the lowest reward. Mean Reward: -15.0 ± 3.74 |
+| Raissa | lr=1e-4, gamma=0.99, batch=128, epsilon_start=1.0, epsilon_end=0.05, epsilon_decay=0.10 [CnnPolicy] | [Exp 9 - CNN Large Batch] Larger batch produces smoother but slower gradient updates. Fewer updates per timestep limits learning at 50k steps. Mean Reward: -4.0 ± 6.20 |
+| Raissa | lr=1e-4, gamma=0.99, batch=128, epsilon_start=1.0, epsilon_end=0.05, epsilon_decay=0.10 [MlpPolicy] | [Exp 10 - MLP Large Batch] **Best experiment.** MLP with large batch — smoother updates reduce the noise inherent in MLP training. Surprisingly outperforms all CNN experiments at 50k steps. Mean Reward: 2.8 ± 5.46 |
 
 ## Noted Behavior / Insights
 Fill after runs:
