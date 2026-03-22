@@ -1,18 +1,18 @@
 # DQN Atari Assignment - Boxing 
 
-## Group 4 Members:
+## Group  Members:
 
 - Elyse Marie Uyiringiye
 - Nice Eva Karabaranga
 - Best Verie Iradukunda
 - Raissa Irutingabo
 
-## Model Files/Videos 
+## Model Files/Videos/results
 
 [https://drive.google.com/drive/folders/18KEPQ7AlXoZxDiDu8lFAwod63G7g-8rQ?usp=sharing]
 ## Best Model Playing: 
 
-[Best Model](https://drive.google.com/file/d/1rm9EKlDZ269LD7_plWfo2yjR2vQQzB_5/view?usp=drive_link)
+[Best Model play](https://drive.google.com/file/d/1rm9EKlDZ269LD7_plWfo2yjR2vQQzB_5/view?usp=drive_link)
 
 ## Overview
 
