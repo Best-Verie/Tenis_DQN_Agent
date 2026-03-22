@@ -85,7 +85,10 @@ Video Demonstration:
 
 
 
-Raissa Experiments (10 Configurations)Notebook used: experiments/irutingabo-experiments.ipynbThis section defines 10 experiment configurations arranged as 5 paired CNN/MLP groups — each pair shares identical hyperparameters so that CnnPolicy and MlpPolicy can be compared fairly under the same conditions.CSV Results: results/raissa/tables/raissa_hyperparameter_results.csvMarkdown Results: results/raissa/tables/raissa_hyperparameter_results.mdName,Policy,Learning Rate,Gamma,Batch Size,Initial Eps,Final Eps,Fraction
+Raissa Experiments (10 Configurations)Notebook used: experiments/irutingabo-experiments.ipynbThis section defines 10 experiment configurations arranged as 5 paired CNN/MLP groups — each pair shares identical hyperparameters so that CnnPolicy and MlpPolicy can be compared fairly under the same conditions.CSV Results: results/raissa/tables/raissa_hyperparameter_results.csvMarkdown Results: results/raissa/tables/raissa_hyperparameter_results.md
+
+
+Name,Policy,Learning Rate,Gamma,Batch Size,Initial Eps,Final Eps,Fraction
 raissa_exp01_cnn_baseline,CnnPolicy,1e-4,0.99,32,1.0,0.05,0.10
 raissa_exp02_mlp_baseline,MlpPolicy,1e-4,0.99,32,1.0,0.05,0.10
 raissa_exp03_cnn_low_lr,CnnPolicy,5e-5,0.99,32,1.0,0.05,0.10
