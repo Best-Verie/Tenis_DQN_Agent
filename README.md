@@ -1,6 +1,6 @@
 # DQN Atari Assignment - Boxing 
 
-## Group 3 Members:
+## Group 4 Members:
 
 - Elyse Marie Uyiringiye
 - Nice Eva Karabaranga
@@ -87,52 +87,38 @@ Video Demonstration:
 
 ## Raissa Experiments (10 Configurations)
 The notebook used is:
-- `experiments/raissa_experiments.ipynb`
 
-It now defines 10 unique experiment combinations including both policy types:
-- 8 runs with `CnnPolicy`
-- 2 runs with `MlpPolicy`
+experiments/irutingabo-experiments.ipynb
 
-## Hyperparameter Results Table
-After running the notebook, use:
-- `results/raissa/tables/raissa_hyperparameter_results.csv`
-- `results/raissa/tables/raissa_hyperparameter_results.md`
+This section defines 10 experiment configurations arranged as 5 paired CNN/MLP groups — each pair shares identical hyperparameters so that CnnPolicy and MlpPolicy can be compared fairly under the same conditions.
 
-Hyperparameter table - Raissa:
+results/raissa/tables/raissa_hyperparameter_results.csv
+results/raissa/tables/raissa_hyperparameter_results.md
 
-| Member Name | Hyperparameter Set | Noted Behavior |
-|-------------|-------------------|----------------|
-| Raissa | lr=1e-4, gamma=0.99, batch=32, epsilon_start=1.0, epsilon_end=0.05, epsilon_decay=0.10 [CnnPolicy] | [Exp 1 - CNN Baseline] Standard DQN with CNN. Reference point for all CNN experiments. Agent struggles at 50k steps — Tennis requires more training to show meaningful rewards. Mean Reward: -9.8 ± 9.41 |
-| Raissa | lr=1e-4, gamma=0.99, batch=32, epsilon_start=1.0, epsilon_end=0.05, epsilon_decay=0.10 [MlpPolicy] | [Exp 2 - MLP Baseline] Same hyperparameters as Exp 1, only policy differs. MLP cannot extract spatial features from pixels. Confirms CNN vs MLP gap. Mean Reward: -6.8 ± 6.85 |
-| Raissa | lr=5e-5, gamma=0.99, batch=32, epsilon_start=1.0, epsilon_end=0.05, epsilon_decay=0.10 [CnnPolicy] | [Exp 3 - CNN Low LR] Lower learning rate slows convergence significantly. Agent learns more cautiously but reward remains negative at 50k steps. Mean Reward: -1.2 ± 1.17 |
-| Raissa | lr=5e-5, gamma=0.99, batch=32, epsilon_start=1.0, epsilon_end=0.05, epsilon_decay=0.10 [MlpPolicy] | [Exp 4 - MLP Low LR] MLP with reduced learning rate. Slower convergence compounds the spatial feature limitation of MLP. Mean Reward: -2.4 ± 6.34 |
-| Raissa | lr=2.5e-4, gamma=0.99, batch=32, epsilon_start=1.0, epsilon_end=0.05, epsilon_decay=0.10 [CnnPolicy] | [Exp 5 - CNN High LR] Higher learning rate causes Q-value instability. Loss spikes during training. High reward variance indicates unstable policy. Mean Reward: -7.2 ± 8.01 |
-| Raissa | lr=2.5e-4, gamma=0.99, batch=32, epsilon_start=1.0, epsilon_end=0.05, epsilon_decay=0.10 [MlpPolicy] | [Exp 6 - MLP High LR] MLP with high learning rate. Aggressive updates on a policy without spatial reasoning leads to poor performance. Mean Reward: -7.0 ± 4.94 |
-| Raissa | lr=1e-4, gamma=0.99, batch=32, epsilon_start=1.0, epsilon_end=0.10, epsilon_decay=0.50 [CnnPolicy] | [Exp 7 - CNN Slow Epsilon Decay] Exploration maintained for 50% of training. Diverse replay buffer but insufficient steps to benefit fully at 50k. High variance. Mean Reward: -8.0 ± 9.90 |
-| Raissa | lr=1e-4, gamma=0.99, batch=32, epsilon_start=1.0, epsilon_end=0.10, epsilon_decay=0.50 [MlpPolicy] | [Exp 8 - MLP Slow Epsilon Decay] Extended exploration with MLP policy. Worst experiment — slow decay combined with no spatial reasoning produces the lowest reward. Mean Reward: -15.0 ± 3.74 |
-| Raissa | lr=1e-4, gamma=0.99, batch=128, epsilon_start=1.0, epsilon_end=0.05, epsilon_decay=0.10 [CnnPolicy] | [Exp 9 - CNN Large Batch] Larger batch produces smoother but slower gradient updates. Fewer updates per timestep limits learning at 50k steps. Mean Reward: -4.0 ± 6.20 |
-| Raissa | lr=1e-4, gamma=0.99, batch=128, epsilon_start=1.0, epsilon_end=0.05, epsilon_decay=0.10 [MlpPolicy] | [Exp 10 - MLP Large Batch] **Best experiment.** MLP with large batch — smoother updates reduce the noise inherent in MLP training. Surprisingly outperforms all CNN experiments at 50k steps. Mean Reward: 2.8 ± 5.46 |
+Hyperparameter Configurations
+namepolicylearning_rategammabatch_sizeexploration_initial_epsexploration_final_epsexploration_fractionraissa_exp01_cnn_baselineCnnPolicy1e-40.99321.00.050.10raissa_exp02_mlp_baselineMlpPolicy1e-40.99321.00.050.10raissa_exp03_cnn_low_lrCnnPolicy5e-50.99321.00.050.10raissa_exp04_mlp_low_lrMlpPolicy5e-50.99321.00.050.10raissa_exp05_cnn_high_lrCnnPolicy2.5e-40.99321.00.050.10raissa_exp06_mlp_high_lrMlpPolicy2.5e-40.99321.00.050.10raissa_exp07_cnn_slow_epsCnnPolicy1e-40.99321.00.100.50raissa_exp08_mlp_slow_epsMlpPolicy1e-40.99321.00.100.50raissa_exp09_cnn_large_batchCnnPolicy1e-40.991281.00.050.10raissa_exp10_mlp_large_batchMlpPolicy1e-40.991281.00.050.10
+Results
+namepolicymean_rewardstd_rewardtrain_minutesraissa_exp10_mlp_large_batchMlpPolicy2.85.461.53raissa_exp03_cnn_low_lrCnnPolicy-1.21.175.08raissa_exp04_mlp_low_lrMlpPolicy-2.46.341.55raissa_exp09_cnn_large_batchCnnPolicy-4.06.206.34raissa_exp02_mlp_baselineMlpPolicy-6.86.851.53raissa_exp06_mlp_high_lrMlpPolicy-7.04.941.53raissa_exp05_cnn_high_lrCnnPolicy-7.28.015.04raissa_exp07_cnn_slow_epsCnnPolicy-8.09.904.82raissa_exp01_cnn_baselineCnnPolicy-9.89.415.13raissa_exp08_mlp_slow_epsMlpPolicy-15.03.741.46
+Findings and Insights
+Best model: raissa_exp10_mlp_large_batch with a mean reward of 2.8 — the only experiment to score positively across all 10 runs.
+Surprise result — MLP beat CNN overall. The average mean reward across all 5 CNN experiments was -6.04, while the MLP average was -5.68. This is unexpected since Boxing is a pixel-based environment where CNNs are designed to have an advantage. However, at only 50,000 timesteps, the CNN likely did not have enough training time to learn useful visual features, whereas the MLP was able to update faster (roughly 1.5 min per run vs ~5 min for CNN) and squeeze more useful learning out of the same budget.
+What helped — Lower learning rate. Reducing the learning rate to 5e-5 produced the best CNN result (-1.2) and the second-best MLP result (-2.4). Slower, more cautious updates appear to stabilize training at this short timestep budget, preventing the agent from bouncing around without settling on a strategy.
+What helped — Larger batch size (for MLP). The MLP with batch size 128 (exp10) was the best experiment overall. Smoother gradient estimates from larger batches gave the MLP enough signal to learn a basic positive reward strategy. Interestingly, the same change hurt the CNN (exp09 scored -4.0), likely because the CNN needs more frequent updates to start learning from frames early in training.
+What hurt — Higher learning rate. Both exp05_cnn_high_lr (-7.2) and exp06_mlp_high_lr (-7.0) performed worse than their respective baselines. At 2.5e-4, updates were too aggressive for the agent to stabilize, leading to inconsistent Q-value estimates and poor play.
+What hurt the most — Slow epsilon decay. Extending exploration to 50% of training (exploration_fraction=0.50) was the worst decision for both policies. exp07_cnn_slow_eps scored -8.0 and exp08_mlp_slow_eps scored -15.0 (the worst result overall). Spending too much of a short 50k-step budget on random exploration left almost no time for the agent to exploit what it had learned. At this training scale, a fast epsilon decay is more practical.
+CNN vs MLP conclusion: CNN is theoretically the right tool for pixel-based environments like Boxing, but it requires significantly more training time and timesteps to benefit from its visual feature extraction. With only 50k timesteps and ~5 minutes of training, the CNN did not have enough budget to outperform MLP. A longer run (200k+ timesteps) would likely reverse the results in CNN's favor.
+Required Artifacts
 
-## Noted Behavior / Insights
-Fill after runs:
-- Which hyperparameter changes improved performance?
-- Which settings harmed performance?
-- Why the final best configuration performed best?
-- CNN vs MLP comparison result for Tennis.
+Best model (assignment name): results/raissa/models/dqn_model.zip
+Best model copy: results/raissa/models/best_dqn_boxing.zip
+Hyperparameter table CSV: results/raissa/tables/raissa_hyperparameter_results.csv
+Hyperparameter table Markdown: results/raissa/tables/raissa_hyperparameter_results.md
+Gameplay video (optional from notebook cell): results/raissa/videos/playback/*.mp4
 
-## Required Artifacts
-- Best model (assignment name): `results/raissa/models/dqn_model.zip`
-- Best model copy: `results/raissa/models/best_dqn_tennis.zip`
-- Hyperparameter table CSV: `results/raissa/tables/raissa_hyperparameter_results.csv`
-- Hyperparameter table Markdown: `results/raissa/tables/raissa_hyperparameter_results.md`
-- Gameplay video (optional from notebook cell): `results/raissa/videos/playback/*.mp4`
-
-## Colab + Google Drive Export
+Colab + Google Drive Export
 The notebook includes export logic that copies key artifacts to:
-- `/content/drive/MyDrive/Boxing_dqn_agent/raissa`
 
-So you can access the model and results table even after Colab runtime disconnects.
-
+/content/drive/MyDrive/Boxing_dqn_agent/raissa
 ## MarieAElyse — ALE/Boxing-v5
 
 ### Environment
