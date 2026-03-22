@@ -3,16 +3,16 @@
 ## Group 3 Members:
 
 - Elyse Marie Uyiringiye
-- Nice Eva
+- Nice Eva Karabaranga
 - Best Verie Iradukunda
 - Raissa Irutingabo
 
 ## Model Files/Videos 
 
-[!https://drive.google.com/drive/folders/18KEPQ7AlXoZxDiDu8lFAwod63G7g-8rQ?usp=sharing]
+[https://drive.google.com/drive/folders/18KEPQ7AlXoZxDiDu8lFAwod63G7g-8rQ?usp=sharing]
 ## Best Model Playing: 
-### (paste the Best model link video here )
 
+[Best Model](https://drive.google.com/file/d/1rm9EKlDZ269LD7_plWfo2yjR2vQQzB_5/view?usp=drive_link)
 
 ## Overview
 
@@ -20,7 +20,7 @@ This project implements a Deep Q-Network (DQN) agent trained to play the Atari B
 
 
 ## Environment
-- Gymnasium Atari environment: `ALE/Tennis-v5`
+- Gymnasium Atari environment: `ALE/Boxing-v5`
 - Framework: Stable-Baselines3 `DQN`
 
 ## Scripts
@@ -190,3 +190,63 @@ So you can access the model and results table even after Colab runtime disconnec
 
 Agent uses **GreedyQPolicy** (`exploration_rate=0.0` → always picks `argmax Q(s,a)`).
 
+## Nice Eva Karabaranga - ALE/Boxing-v5
+
+### Environment
+| Property | Value |
+|----------|-------|
+| Environment | `ALE/Boxing-v5` |
+| Action Space | `Discrete(18)` |
+| Observation Space | `Box(0, 255, (210, 160, 3), uint8)` |
+| Algorithm | DQN + CnnPolicy |
+| Total Timesteps | 100,000 per experiment |
+
+---
+
+### Hyperparameter Table
+
+| Member | Hyperparameter Set | Noted Behavior |
+|--------|-------------------|----------------|
+| Nice | lr=2.5e-4, gamma=0.95, batch=64, eps_start=1.0, eps_end=0.02, eps_fraction=0.20 | [Exp 1 - Baseline] Moderate config, stable reference point. Mean Reward: -0.20 |
+| Nice | lr=2.5e-4, gamma=0.95, batch=64, eps_start=1.0, eps_end=0.0, eps_fraction=0.20 | [Exp 2 - Zero Eps End] Fully greedy at end, there's no residual exploration. **Best performer. Mean Reward: +4.40 ✅ Best** |
+| Nice | lr=2.5e-4, gamma=0.0, batch=64, eps_start=1.0, eps_end=0.02, eps_fraction=0.20 | [Exp 3 - Zero Gamma] Fully myopic agent ignores all future rewards. Expected poor performance confirmed. Mean Reward: -2.80 |
+| Nice | lr=1e-3, gamma=0.95, batch=64, eps_start=1.0, eps_end=0.02, eps_fraction=0.20 | [Exp 4 - Very High LR] Aggressive updates cause unstable Q-values. Worst CNN experiment. Mean Reward: -24.80 |
+| Nice | lr=1e-6, gamma=0.95, batch=64, eps_start=1.0, eps_end=0.02, eps_fraction=0.20 | [Exp 5 - Tiny LR] Near-zero learning rate: agent barely updates. Stagnant performance. Mean Reward: -11.80 |
+| Nice | lr=2.5e-4, gamma=0.999, batch=256, eps_start=1.0, eps_end=0.02, eps_fraction=0.20 | [Exp 6 - Large Batch + High Gamma] Stable gradients with strong future valuation. Mean Reward: +0.40 |
+| Nice | lr=2.5e-4, gamma=0.95, batch=64, eps_start=1.0, eps_end=0.02, eps_fraction=0.01 | [Exp 7 - Instant Exploit] Epsilon collapses in the first 1% of training; almost no exploration phase. Mean Reward: +2.00 |
+| Nice | lr=2.5e-4, gamma=0.95, batch=64, eps_start=1.0, eps_end=0.02, eps_fraction=0.90 | [Exp 8 - Full Explore] Explores for 90% of training: agent learns slowly and struggles to exploit. Mean Reward: 0.00 |
+| Nice | lr=2.5e-4, gamma=0.99, batch=64, eps_start=1.0, eps_end=0.01, eps_fraction=0.15 | [Exp 9 - Best Guess] Balanced config combining good gamma and low eps_end. Mean Reward: +1.00 |
+| Nice | lr=2.5e-4, gamma=0.99, batch=64, eps_start=1.0, eps_end=0.0, eps_fraction=0.20 | [Exp 11 - Zero Eps + High Gamma] Greedy convergence combined with strong future valuation. Mean Reward: -0.20 |
+| Nice | lr=2.5e-4, gamma=0.95, batch=128, eps_start=1.0, eps_end=0.0, eps_fraction=0.20 | [Exp 12 - Zero Eps + Large Batch] Larger batch stabilises gradients with fully greedy end. Mean Reward: -0.40 |
+| Nice | lr=5e-4, gamma=0.99, batch=64, eps_start=1.0, eps_end=0.0, eps_fraction=0.15 | [Exp 13 - Tuned LR + Zero Eps] Slightly higher LR with zero eps and high gamma; LR too high for zero eps. Mean Reward: -20.20 |
+
+---
+
+### Best Model: exp02_zero_eps_end
+
+| Metric | Value |
+|--------|-------|
+| Mean Reward | 4.40 ± 3.72 |
+| Policy | CnnPolicy |
+| Key Setting | eps_end=0.0 (fully greedy convergence) |
+
+---
+
+### Key Insights
+
+- **Best config:** `exp02_zero_eps_end` :setting epsilon_end to 0.0 forces fully greedy exploitation at the end of training, giving the highest reward
+- **Worst config:** `exp04_very_high_lr` : lr=1e-3 caused Q-value instability, scoring -24.80
+- **Zero gamma finding:** Setting gamma=0.0 makes the agent fully myopic, meaning it only optimises for immediate reward and cannot learn long-term boxing strategy
+- **Exploration tradeoff:** Both instant exploitation (exp07) and full exploration (exp08) underperformed, confirming that a balanced epsilon decay is important
+
+---
+
+### Artifacts
+- Notebook: `experiments/Nice_experiments.ipynb`
+- Best model: `Nice_dqn_model.zip`
+- Hyperparameter table: `hyperparameter_table_nice.csv`
+- Reward comparison: `assets/nice_reward_comparison.png`
+- Training curves: `assets/nice_training_curves.png`
+
+## Demo: 
+[My best model](https://drive.google.com/file/d/1YmAl1JB5iatSVjZoA1seLZj41rOzOwoL/view?usp=drive_link) 
