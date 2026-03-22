@@ -85,18 +85,18 @@ Raissa Experiments (10 Configurations)Notebook used: experiments/irutingabo-expe
 
 ## Hyperparamter experiments
 
-| Name                         | Policy    | LR   | Gamma | Batch | Init Eps | Final Eps | Frac |
-|------------------------------|-----------|------|-------|-------|----------|-----------|------|
-| raissa_exp01_cnn_baseline    | CnnPolicy | 1e-4 | 0.99  | 32    | 1.0      | 0.05      | 0.10 |
-| raissa_exp02_mlp_baseline    | MlpPolicy | 1e-4 | 0.99  | 32    | 1.0      | 0.05      | 0.10 |
-| raissa_exp03_cnn_low_lr      | CnnPolicy | 5e-5 | 0.99  | 32    | 1.0      | 0.05      | 0.10 |
-| raissa_exp04_mlp_low_lr      | MlpPolicy | 5e-5 | 0.99  | 32    | 1.0      | 0.05      | 0.10 |
-| raissa_exp05_cnn_high_lr     | CnnPolicy | 2.5e-4| 0.99  | 32    | 1.0      | 0.05      | 0.10 |
-| raissa_exp06_mlp_high_lr     | MlpPolicy | 2.5e-4| 0.99  | 32    | 1.0      | 0.05      | 0.10 |
-| raissa_exp07_cnn_slow_eps    | CnnPolicy | 1e-4 | 0.99  | 32    | 1.0      | 0.10      | 0.50 |
-| raissa_exp08_mlp_slow_eps    | MlpPolicy | 1e-4 | 0.99  | 32    | 1.0      | 0.10      | 0.50 |
-| raissa_exp09_cnn_large_batch | CnnPolicy | 1e-4 | 0.99  | 128   | 1.0      | 0.05      | 0.10 |
-| raissa_exp10_mlp_large_batch | MlpPolicy | 1e-4 | 0.99  | 128   | 1.0      | 0.05      | 0.10 |
+| Member Name | Experiment                   | Hyperparameter Set                                                                         | Noted Behavior                                                                                                              |
+|-------------|------------------------------|--------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| Raissa      | raissa_exp01_cnn_baseline    | lr=0.0001, gamma=0.99, batch=32, epsilon_start=1.0, epsilon_end=0.05, epsilon_decay=0.1   | CNN configuration for Boxing; compare stability and final reward against baseline. Mean reward: -9.80 +/- 9.41.            |
+| Raissa      | raissa_exp02_mlp_baseline    | lr=0.0001, gamma=0.99, batch=32, epsilon_start=1.0, epsilon_end=0.05, epsilon_decay=0.1   | MLP ablation on Boxing; typically weaker than CNN on pixel observations. Mean reward: -6.80 +/- 6.85.                      |
+| Raissa      | raissa_exp03_cnn_low_lr      | lr=5e-05, gamma=0.99, batch=32, epsilon_start=1.0, epsilon_end=0.05, epsilon_decay=0.1    | CNN configuration for Boxing; compare stability and final reward against baseline. Mean reward: -1.20 +/- 1.17.            |
+| Raissa      | raissa_exp04_mlp_low_lr      | lr=5e-05, gamma=0.99, batch=32, epsilon_start=1.0, epsilon_end=0.05, epsilon_decay=0.1    | MLP ablation on Boxing; typically weaker than CNN on pixel observations. Mean reward: -2.40 +/- 6.34.                      |
+| Raissa      | raissa_exp05_cnn_high_lr     | lr=0.00025, gamma=0.99, batch=32, epsilon_start=1.0, epsilon_end=0.05, epsilon_decay=0.1  | CNN configuration for Boxing; compare stability and final reward against baseline. Mean reward: -7.20 +/- 8.01.            |
+| Raissa      | raissa_exp06_mlp_high_lr     | lr=0.00025, gamma=0.99, batch=32, epsilon_start=1.0, epsilon_end=0.05, epsilon_decay=0.1  | MLP ablation on Boxing; typically weaker than CNN on pixel observations. Mean reward: -7.00 +/- 4.94.                      |
+| Raissa      | raissa_exp07_cnn_slow_eps    | lr=0.0001, gamma=0.99, batch=32, epsilon_start=1.0, epsilon_end=0.1, epsilon_decay=0.5    | CNN configuration for Boxing; compare stability and final reward against baseline. Mean reward: -8.00 +/- 9.90.            |
+| Raissa      | raissa_exp08_mlp_slow_eps    | lr=0.0001, gamma=0.99, batch=32, epsilon_start=1.0, epsilon_end=0.1, epsilon_decay=0.5    | MLP ablation on Boxing; typically weaker than CNN on pixel observations. Mean reward: -15.00 +/- 3.74.                     |
+| Raissa      | raissa_exp09_cnn_large_batch | lr=0.0001, gamma=0.99, batch=128, epsilon_start=1.0, epsilon_end=0.05, epsilon_decay=0.1  | CNN configuration for Boxing; compare stability and final reward against baseline. Mean reward: -4.00 +/- 6.20.            |
+| Raissa      | raissa_exp10_mlp_large_batch | lr=0.0001, gamma=0.99, batch=128, epsilon_start=1.0, epsilon_end=0.05, epsilon_decay=0.1  | MLP ablation on Boxing; typically weaker than CNN on pixel observations. Mean reward: 2.80 +/- 5.46.                       |
 
 
 ## Results
