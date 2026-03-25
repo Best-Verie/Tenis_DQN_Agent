@@ -154,31 +154,30 @@ What hurt the most: Slow epsilon decay. Extending exploration to 50% of training
 | Elyse | lr=1e-4, gamma=0.99, batch=128, epsilon_start=1.0, epsilon_end=0.05, epsilon_decay=0.10 | [Exp 6 - Large Batch] Smoother loss curve but fewer updates per timestep. Final performance below baseline. Mean Reward: -1.2 |
 | Elyse | lr=1e-4, gamma=0.99, batch=16, epsilon_start=1.0, epsilon_end=0.05, epsilon_decay=0.10 | [Exp 7 - Small Batch] Noisy gradients but frequent updates. Surprisingly good performance. Mean Reward: 7.4 |
 | Elyse | lr=1e-4, gamma=0.99, batch=32, epsilon_start=1.0, epsilon_end=0.10, epsilon_decay=0.50 | [Exp 8 - Slow Epsilon Decay] Extended exploration fills replay buffer with diverse transitions. Mean Reward: 3.4 |
-| Elyse | lr=1e-4, gamma=0.99, batch=32, epsilon_start=1.0, epsilon_end=0.01, epsilon_decay=0.05 | [Exp 9 - Fast Epsilon Decay] Commits to exploitation early. Best result — Boxing is simple enough that fast exploitation beats extended exploration. **Mean Reward: 11.2 ✅ Best** |
+| Elyse | lr=1e-4, gamma=0.99, batch=32, epsilon_start=1.0, epsilon_end=0.01, epsilon_decay=0.05 | [Exp 9 - Fast Epsilon Decay] Commits to exploitation early. Best result — Boxing is simple enough that fast exploitation beats extended exploration. **Mean Reward: 11.2  Best** |
 | Elyse | lr=1e-4, gamma=0.99, batch=32, epsilon_start=1.0, epsilon_end=0.05, epsilon_decay=0.10 [MlpPolicy] | [Exp 10 - MLP Ablation] Same hyperparameters as Exp 1, only policy differs. Cannot extract spatial features. 37-point gap vs CNN confirms CnnPolicy is essential. Mean Reward: -33.2 |
 
----
 
-### Best Model — exp09_fast_eps
+### Results Summary
+| # | Experiment | Policy | lr | gamma | batch | ε_start | ε_end | ε_decay | Mean Reward |
+|---|-----------|--------|----|-------|-------|---------|-------|---------|-------------|
+| 1 | Baseline | CnnPolicy | 1e-4 | 0.99 | 32 | 1.0 | 0.05 | 0.10 | 3.80 ± 6.05 |
+| 2 | High LR | CnnPolicy | 5e-4 | 0.99 | 32 | 1.0 | 0.05 | 0.10 | -41.00 ± 1.67 |
+| 3 | Low LR | CnnPolicy | 1e-5 | 0.99 | 32 | 1.0 | 0.05 | 0.10 | -4.40 ± 2.06 |
+| 4 | Low Gamma | CnnPolicy | 1e-4 | 0.90 | 32 | 1.0 | 0.05 | 0.10 | 1.40 ± 3.61 |
+| 5 | High Gamma | CnnPolicy | 1e-4 | 0.999 | 32 | 1.0 | 0.05 | 0.10 | 3.40 ± 5.12 |
+| 6 | Large Batch | CnnPolicy | 1e-4 | 0.99 | 128 | 1.0 | 0.05 | 0.10 | -1.20 ± 3.71 |
+| 7 | Small Batch | CnnPolicy | 1e-4 | 0.99 | 16 | 1.0 | 0.05 | 0.10 | 7.40 ± 7.09 |
+| 8 | Slow ε Decay | CnnPolicy | 1e-4 | 0.99 | 32 | 1.0 | 0.10 | 0.50 | 3.40 ± 3.01 |
+| 9  | Fast ε Decay | CnnPolicy | 1e-4 | 0.99 | 32 | 1.0 | 0.01 | 0.05 | **11.20 ± 6.76** |
+| 10 | MLP Ablation | MlpPolicy | 1e-4 | 0.99 | 32 | 1.0 | 0.05 | 0.10 | -33.20 ± 2.40 |
 
-| Metric | Value |
-|--------|-------|
-| Mean Reward (training eval) | 11.2 ± 6.76 |
-| Mean Reward (live play) | 8.6 ± 1.85 |
-| Win Rate | 5W / 0D / 0L (100%) |
-| Best Episode | 11.0 |
-| Worst Episode | 6.0 |
-
----
 
 ### Key Insights
 
-- **Best config:** `exp09_fast_eps` — fast epsilon decay (5% of steps) worked best for Boxing because the environment is simple enough to benefit from early exploitation
-- **Worst config:** `exp02_high_lr` — lr=5e-4 caused Q-value divergence, scoring -41.0
-- **CNN vs MLP:** CnnPolicy scored 3.8 vs MlpPolicy -33.2 with identical hyperparameters — a 37-point gap proving CNN is essential for pixel-based Atari
-- **Surprise finding:** Fast epsilon decay outperformed slow decay, contrary to theory — Boxing's dense reward signal allows the agent to learn a good policy quickly
+The best-performing model was **exp09_fast_eps (CnnPolicy)** with a mean reward of **11.2**, being the highest in the group. Fast epsilon decay worked well here because Boxing has a simple and dense reward signal; the agent receives feedback on every punch, so it learns a good strategy quickly and benefits more from exploiting that strategy early rather than spending time on random exploration. The high learning rate experiment (lr=5e-4) was the worst, scoring -41.0, because overly large updates destabilised the Q-values and the agent never converged. The CNN policy consistently outperformed MLP across all comparable experiments with identical settings. CNN scored 3.8 while MLP scored -33.2, confirming that convolutional layers are essential for pixel-based games where spatial understanding of the opponent's position and movement is critical to learning an effective policy.
 
----
+
 
 ### Gameplay Video
 
