@@ -129,7 +129,7 @@ What hurt: Higher learning rate. At 2.5e-4, updates were too aggressive, leading
 
 What hurt the most: Slow epsilon decay. Extending exploration to 50% of training was the worst-performing decision. Spending too much of a short 50k-step budget on random exploration left insufficient time for effective exploitation.
 
-## MarieAElyse — ALE/Boxing-v5
+## Marie Elyse's contribution
 
 ### Environment
 | Property | Value |
